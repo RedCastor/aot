@@ -1,0 +1,211 @@
+<!doctype html>
+<html class="no-js" lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Animate On Scroll</title>
+
+    <link type="text/css" rel="stylesheet" href="dist/styles/foundation.css"/>
+    <link type="text/css" rel="stylesheet" href="../bower_components/animate.css/animate.css"/>
+    <link type="text/css" rel="stylesheet" href="../dist/aot.css"/>
+    <link type="text/css" rel="stylesheet" href="dist/styles/main.css"/>
+
+    <script type="text/javascript" src="dist/scripts/es6-shim.js"></script>
+    <script type="text/javascript" src="dist/scripts/jquery.js"></script>
+    <script type="text/javascript" src="dist/scripts/angular.js"></script>
+    <script type="text/javascript" src="dist/scripts/angular-foundation-6.js"></script>
+
+    <script type="text/javascript" src="../dist/aot.js"></script>
+    <script type="text/javascript" src="dist/scripts/main.js"></script>
+
+    <script type="text/javascript">
+        'use strict';
+
+        var app = angular.module('app', ['mm.foundation', 'ngAnimate', 'angular-json-pretty', 'angular-owl-carousel-2']);
+
+
+
+        app.controller('appCtrl', ['$scope', '$timeout', '$window', function ($scope, $timeout, $window) {
+
+            var aotElements = [];
+
+            function onInitialized ( event ) {
+
+                aotElements = event.target.AOTinitAll('.owl-item');
+
+                angular.forEach(aotElements, function(aot_elem, key) {
+
+                    if ( key >= event.item.index && key <= (event.item.index + event.page.size - 1)) {
+                        aot_elem.AOTanimate(true);
+                    }
+                    else {
+                        aot_elem.AOTanimate(false);
+                    }
+                });
+
+            }
+
+            function onTranslated (event) {
+
+                $timeout(function(){
+
+                    angular.forEach(aotElements, function(aot_elem, key) {
+
+                        if ( (key >= event.item.index && key <= (event.item.index + event.page.size - 1)) ||
+                            ((key !== event.item.index + event.page.size) && (key !== event.item.index - 1))
+                        ) {
+                            aot_elem.AOTanimate(true);
+                        }
+                        else {
+                            aot_elem.AOTanimate(false);
+                        }
+
+                    });
+                }, 100);
+            }
+
+            function onLoadedLazy (event) {
+                if (angular.isDefined($window.objectFitImages)) {
+                    objectFitImages('img.fit');
+                }
+            }
+
+            $scope.properties = {
+                autoplay: true,
+                items: 2,
+                lazyLoad: true,
+                itemElement: 'owl-item',
+                onInitialized: onInitialized,
+                onTranslated: onTranslated,
+                onLoadedLazy: onLoadedLazy
+            };
+
+            $scope.gallery = [
+                {
+                    img: {
+                        dataNgSrc: 'dist/images/loco-300x300.jpg',
+                        dataImage: 'dist/images/loco-768x518.jpg',
+                        dataBig_image: 'dist/images/loco.jpg',
+                        dataType: 'youtube',
+                        dataVideoid: '63OVcmS5x3M',
+                        alt: 'Loco',
+                        dataDescription: '4 maliger Motorstart von Br 218 456 und 218 481 am IC 2012 in Kempten'
+                    },
+                    thumb: 'dist/images/loco-300x300.jpg',
+                    image: 'https://www.youtube.com/watch?v=63OVcmS5x3M',
+                    big_image: 'dist/images/loco.jpg',
+                    title: 'Loco',
+                    description: '4 maliger Motorstart von Br 218 456 und 218 481 am IC 2012 in Kempten'
+                },
+                {
+                    img: {
+                        dataNgSrc: 'dist/images/mining-excavator-300x300.jpg',
+                        dataImage: 'dist/images/mining-excavator-768x512.jpg',
+                        dataBig_image: 'dist/images/mining-excavator.jpg',
+                        alt: 'Mining Excavator',
+                        dataDescription: 'My description'
+                    },
+                    thumb: 'dist/images/mining-excavator-300x300.jpg',
+                    image: 'dist/images/mining-excavator-768x512.jpg',
+                    big_image: 'dist/images/mining-excavator.jpg',
+                    title: 'Mining Excavator',
+                    description: 'My description'
+                },
+                {
+                    img: {
+                        dataNgSrc: 'dist/images/buick-300x300.jpg',
+                        dataImage: 'dist/images/buick-768x512.jpg',
+                        dataBig_image: 'dist/images/buick.jpg',
+                        alt: 'Buick',
+                        dataDescription: 'My description'
+                    },
+                    thumb: 'dist/images/buick-300x300.jpg',
+                    image: 'dist/images/buick-768x512.jpg',
+                    big_image: 'dist/images/buick.jpg',
+                    title: 'Buick',
+                    description: 'My description'
+                },
+                {
+                    img: {
+                        dataNgSrc: 'dist/images/stadium-300x300.jpg',
+                        dataImage: 'dist/images/stadium-768x500.jpg',
+                        dataBig_image: 'dist/images/stadium.jpg',
+                        alt: 'Stadium',
+                        dataDescription: 'My description'
+                    },
+                    thumb: 'dist/images/stadium-300x300.jpg',
+                    image: 'dist/images/stadium-768x500.jpg',
+                    big_image: 'dist/images/stadium.jpg',
+                    title: 'Stadium',
+                    description: 'My description'
+                },
+                {
+                    img: {
+                        dataNgSrc: 'dist/images/bmw-300x300.jpg',
+                        dataImage: 'dist/images/bmw-768x512.jpg',
+                        dataBig_image: 'dist/images/bmw.jpg',
+                        alt: 'BMW',
+                        dataDescription: 'My description'
+                    },
+                    thumb: 'dist/images/bmw-300x300.jpg',
+                    image: 'dist/images/bmw-768x512.jpg',
+                    big_image: 'dist/images/bmw.jpg',
+                    title: 'BMW',
+                    description: 'My description'
+                }
+            ];
+
+            $scope.owlReady = function ( api ) {
+
+
+            };
+        }]);
+    </script>
+</head>
+
+<body data-ng-app="app" >
+<!--[if lt IE 9]>
+<div class="alert alert-warning browserupgrade">
+    You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+</div>
+<![endif]-->
+
+<header class="container-fluid header-main">
+    <div class="row">
+        <div class="small-12">
+            <div class="text-center">
+                <h1 class="page-header">AOT</h1>
+                <h3>Animate On Trigger</h3>
+                <a class="button large hollow default" href="https://github.com/RedCastor/aot"><i class="fa fa-github"></i>&nbsp;&nbsp;View on GitHub</a>
+                <a class="button large hollow default" href="https://github.com/RedCastor/aot/releases"><i class="fa fa-download"></i>&nbsp;&nbsp;Download</a>
+                <h5 class="version"><small>Currently v1.0.0</small></h5>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <div data-ng-controller="appCtrl">
+        <br>
+        <div class="row">
+            <div class="small-12 columns">
+
+                <ng-owl-carousel class="owl-theme" owl-items="gallery" owl-properties="properties" owl-ready="owlReady($api)">
+                    <figure class="fit" data-ng-repeat="source in gallery" >
+                        <img class="owl-lazy" class="fit fit-cover" data-src="{{source.thumb}}" />
+                        <section class="owl-slide-content">
+                            <section class="entry-content">
+                                <h2 data-aot="slideInRight" data-aot-duration="1000" data-aot-delay="1000" class="text-center">{{source.title}}</h2>
+                                <p data-aot="slideInRight" data-aot-duration="1000" data-aot-delay="2000"class="text-center">{{source.description}}</p>
+                                <p data-aot="slideInRight" data-aot-duration="1500" data-aot-delay="2500" class="text-center"><button  class="button primary">Read More</button></p>
+                            </section>
+                        </section>
+                    </figure>
+                </ng-owl-carousel>
+
+            </div>
+        </div>
+        <br>
+    </div>
+</main>
+</body>
+</html>

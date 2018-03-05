@@ -1,0 +1,29 @@
+{
+  "name": "aot",
+  "version": "1.0.0",
+  "homepage": "https://redcastor.io",
+  "authors": [
+    "Auban le Grelle"
+  ],
+  "description": "",
+  "keywords": [
+    "redcastor",
+    "directive",
+    "animate"
+  ],
+  "main": [
+    "dist/aot.js",
+    "dist/aot.css"
+  ],
+  "ignore": [
+    "**/.*",
+    "**/*.txt",
+    ".jscsrc",
+    ".jshintrc",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "animate.css": "~3.5.2"
+  }
+}
