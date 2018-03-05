@@ -6,7 +6,7 @@
     <title>Animate On Scroll</title>
 
     <link type="text/css" rel="stylesheet" href="dist/styles/foundation.css"/>
-    <link type="text/css" rel="stylesheet" href="../bower_components/animate.css/animate.css"/>
+    <link type="text/css" rel="stylesheet" href="dist/styles/animate.css"/>
     <link type="text/css" rel="stylesheet" href="../dist/aot.css"/>
     <link type="text/css" rel="stylesheet" href="dist/styles/main.css"/>
 
@@ -71,10 +71,13 @@
             }
 
             $scope.properties = {
+                loop: true,
                 autoplay: true,
-                items: 2,
+                items: 1,
                 lazyLoad: true,
                 itemElement: 'owl-item',
+                animateIn: 'fadeIn',
+                animateOut: 'fadeOut',
                 onInitialized: onInitialized,
                 onTranslated: onTranslated,
                 onLoadedLazy: onLoadedLazy
@@ -109,7 +112,7 @@
                     image: 'dist/images/mining-excavator-768x512.jpg',
                     big_image: 'dist/images/mining-excavator.jpg',
                     title: 'Mining Excavator',
-                    description: 'My description'
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Etiam et varius lorem, id efficitur mauris. Quisque blandit porttitor mi eget condimentum. Etiam sollicitudin sapien tellus, quis dictum urna blandit et. Curabitur condimentum imperdiet odio ut interdum. Proin in nibh eget tortor aliquet fermentum sed in nunc.'
                 },
                 {
                     img: {
@@ -123,7 +126,7 @@
                     image: 'dist/images/buick-768x512.jpg',
                     big_image: 'dist/images/buick.jpg',
                     title: 'Buick',
-                    description: 'My description'
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Etiam et varius lorem, id efficitur mauris. Quisque blandit porttitor mi eget condimentum. Etiam sollicitudin sapien tellus, quis dictum urna blandit et. Curabitur condimentum imperdiet odio ut interdum. Proin in nibh eget tortor aliquet fermentum sed in nunc.'
                 },
                 {
                     img: {
@@ -190,13 +193,13 @@
             <div class="small-12 columns">
 
                 <ng-owl-carousel class="owl-theme" owl-items="gallery" owl-properties="properties" owl-ready="owlReady($api)">
-                    <figure class="fit" data-ng-repeat="source in gallery" >
-                        <img class="owl-lazy" class="fit fit-cover" data-src="{{source.thumb}}" />
+                    <figure style="height: 400px;" data-ng-repeat="source in gallery" >
+                        <img class="owl-lazy fit fit-cover" data-src="{{source.big_image}}" />
                         <section class="owl-slide-content">
                             <section class="entry-content">
-                                <h2 data-aot="slideInRight" data-aot-duration="1000" data-aot-delay="1000" class="text-center">{{source.title}}</h2>
-                                <p data-aot="slideInRight" data-aot-duration="1000" data-aot-delay="2000"class="text-center">{{source.description}}</p>
-                                <p data-aot="slideInRight" data-aot-duration="1500" data-aot-delay="2500" class="text-center"><button  class="button primary">Read More</button></p>
+                                <h2 data-aot="fadeInRight tada" data-aot-duration="1000" data-aot-delay="500" class="text-center">{{source.title}}</h2>
+                                <div class="callout align-center" data-aot="fadeInLeft tada" data-aot-duration="1000" data-aot-delay="1000"><p class="text-center">{{source.description}}</p></div>
+                                <p data-aot="fadeInDown tada" data-aot-duration="1500" data-aot-delay="1500" class="text-center"><button  class="button primary">Read More</button></p>
                             </section>
                         </section>
                     </figure>

@@ -128,8 +128,8 @@ HTMLElement.prototype.AOTanimateAll = function( selector, visible ){
 
   var aot_all = this.querySelectorAll(selector);
 
-  [].forEach.call(aot_all, function(elem, i) {
-    elem.AOTanimate(visible);
+  [].forEach.call(aot_all, function(el_anim, i) {
+    el_anim.AOTanimate(visible);
   });
 
   return aot_all;
@@ -152,14 +152,14 @@ HTMLElement.prototype.AOTanimate = function( visible ){
     var class_anim = 'aot-animate';
     var classes_in = [class_anim], classes_out = ['aot-hide'];
     var once = aot_el.aot.options.once;
-    var disbale = aot_el.aot.options.disbale;
+    var disable = aot_el.aot.options.disable;
 
     if( el_anim.node.getAttribute('data-aot-once') !== null ) {
       once = el_anim.node.getAttribute('data-aot-once') === true || false;
     }
 
-    if( el_anim.node.getAttribute('data-aot-disbale') !== null ) {
-      disbale = el_anim.node.getAttribute('data-aot-disbale') === true || false;
+    if( el_anim.node.getAttribute('data-aot-disable') !== null ) {
+      disable = el_anim.node.getAttribute('data-aot-disable') === true || false;
     }
 
     if ( once !== true || !el_anim.node.classList.contains(class_anim) ) {
@@ -176,7 +176,7 @@ HTMLElement.prototype.AOTanimate = function( visible ){
 
       classes_in = classes_anim ? classes_in.concat(classes_anim.split(" ")) : classes_in;
 
-      if ( visible === true && disbale === false ) {
+      if ( visible === true && disable === false ) {
 
         el_anim.node.classList.remove(classes_out);
 

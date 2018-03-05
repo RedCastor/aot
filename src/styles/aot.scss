@@ -20,21 +20,21 @@
 
 // Generate Duration && Delay
 [data-aot] {
-  @for $i from 1 through 60 {
-    &[data-aot][data-aot-duration='#{$i * 50}'] {
+  @for $i from 1 through 150 {
+    &[data-aot][data-aot-duration='#{$i * 100}'] {
       animation-duration: 0ms;
 
       &.aot-animate {
-        animation-duration: #{$i * 50}ms;
+        animation-duration: #{$i * 100}ms;
       }
     }
 
-    body[data-aot-delay='#{$i * 50}'] &,
-    &[data-aot][data-aot-delay='#{$i * 50}'] {
+    body[data-aot-delay='#{$i * 100}'] &,
+    &[data-aot][data-aot-delay='#{$i * 100}'] {
       animation-delay: 0ms;
 
       &.aot-animate {
-        animation-delay: #{$i * 50}ms;
+        animation-delay: #{$i * 100}ms;
       }
     }
   }
