@@ -53,6 +53,14 @@ HTMLElement.prototype.AOTrefresh = function(initialize, visible) {
     return this.aot.elements;
 };
 
+HTMLElement.prototype.AOTanimateAll = function(selector, visible) {
+    var aot_all = this.querySelectorAll(selector);
+    [].forEach.call(aot_all, function(elem, i) {
+        elem.AOTanimate(visible);
+    });
+    return aot_all;
+};
+
 HTMLElement.prototype.AOTanimate = function(visible) {
     var aot_el = this;
     [].forEach.call(this.aot.elements, function(el_anim, key) {

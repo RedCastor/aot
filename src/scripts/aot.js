@@ -3,7 +3,7 @@
  * AOT (Animate On Trigger)
  * made to animate elements on javascript trigger
  *
- * Use Animate css classes
+ * Use Animate css classes in data-aot="slideInRight"
  * *******************************************************
  */
 
@@ -116,6 +116,24 @@ HTMLElement.prototype.AOTrefresh = function (initialize, visible) {
   }
 
   return this.aot.elements;
+};
+
+
+/**
+ * Animate All by selector
+ *
+ * @param visible
+ */
+HTMLElement.prototype.AOTanimateAll = function( selector, visible ){
+
+  var aot_all = this.querySelectorAll(selector);
+
+  [].forEach.call(aot_all, function(elem, i) {
+    elem.AOTanimate(visible);
+  });
+
+  return aot_all;
+
 };
 
 
