@@ -20,7 +20,7 @@
 
 // Generate Duration && Delay
 [data-aot] {
-  @for $i from 1 through 150 {
+  @for $i from 1 through 70 {
     &[data-aot][data-aot-duration='#{$i * 100}'] {
       animation-duration: 0ms;
 

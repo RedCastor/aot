@@ -138,11 +138,11 @@ HTMLElement.prototype.AOTanimateAll = function( selector, visible ){
  *
  * @param visible
  */
-HTMLElement.prototype.AOTanimate = function( visible ){
+HTMLElement.prototype.AOTanimate = function( visible, timeout ){
 
   var aot_el = this;
 
-  [].forEach.call(this.aot.elements, function(el_anim, key) {
+  [].forEach.call(aot_el.aot.elements, function(el_anim, key) {
 
     var classes_anim, i;
     var class_anim = 'aot-animate';
@@ -174,11 +174,18 @@ HTMLElement.prototype.AOTanimate = function( visible ){
 
       if ( visible === true && disable === false ) {
 
-        el_anim.node.classList.remove(classes_out);
-
-        for (i = 0; i < classes_in.length; i++) {
-          el_anim.node.classList.add(classes_in[i]);
+        if ( !el_anim.node.classList.contains(class_anim) ) {
+          el_anim.node.classList.add(classes_out);
         }
+
+        setTimeout(function() {
+
+          el_anim.node.classList.remove(classes_out);
+
+          for (i = 0; i < classes_in.length; i++) {
+            el_anim.node.classList.add(classes_in[i]);
+          }
+        }, parseInt(timeout, 10));
       }
       else {
 

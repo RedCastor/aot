@@ -31,12 +31,12 @@
       var aotElements = [];
 
       //Owl Animation
-      this.applyAnimation = function ( target, current ) {
+      this.applyAnimation = function ( target, current, timeout ) {
 
         var min = target.minimum();
         var size = target.settings && (target.settings.center || target.settings.autoWidth || target.settings.dotsData ? 1 : target.settings.dotsEach || target.settings.items);
 
-        current = angular.isUndefined(current) ? target.current() : current;
+        current = !current ? target.current() : current;
 
         var display_items = [];
 
@@ -57,12 +57,12 @@
 
           angular.forEach(display_items, function(display_item, item_key) {
             if ( display_item.indexOf(key) !== -1 ){
-              is_visible = true;
+              is_visible = item_key;
             }
           });
 
           if ( is_visible || key >= current && key < current + size ){
-            aotElements[key].AOTanimate(true);
+            aotElements[key].AOTanimate(true, parseInt(is_visible * timeout, 10) );
           }
           else {
             aotElements[key].AOTanimate(false);
@@ -74,7 +74,7 @@
       function onInitialized ( event ) {
 
         aotElements = event.target.AOTinitAll('.owl-item');
-        owlCtrl.applyAnimation( event.relatedTarget );
+        owlCtrl.applyAnimation( event.relatedTarget, null, 2000 );
       }
 
       function onChange (event) {
@@ -93,7 +93,7 @@
 
       $scope.properties = {
         loop: true,
-        autoplay: true,
+        autoplay: false,
         items: 3,
         rewind: false,
         lazyLoad: true,
