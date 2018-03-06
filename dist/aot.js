@@ -34,7 +34,7 @@ HTMLElement.prototype.AOTdestroy = function() {
     delete this.aot;
 };
 
-HTMLElement.prototype.AOTrefreshAll = function(selector, initialize, visible) {
+HTMLElement.prototype.AOTrefreshAll = function(selector, visible, initialize) {
     var aot_all = this.querySelectorAll(selector);
     [].forEach.call(aot_all, function(elem, i) {
         elem.AOTrefresh(initialize, visible);
@@ -42,14 +42,11 @@ HTMLElement.prototype.AOTrefreshAll = function(selector, initialize, visible) {
     return aot_all;
 };
 
-HTMLElement.prototype.AOTrefresh = function(initialize, visible) {
-    if (initialize) {
-        this.aot.initialized = true;
-    }
-    if (this.aot.initialized) {
+HTMLElement.prototype.AOTrefresh = function(visible, initialize) {
+    if (!this.aot.hasOwnProperty(initialized) || initialize === true) {
         this.aot.elements = this.AOTinit(this.aot.options);
-        this.AOTanimate(visible === true || false);
     }
+    this.AOTanimate(visible === true || false);
     return this.aot.elements;
 };
 

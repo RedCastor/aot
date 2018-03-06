@@ -37,4 +37,4 @@ bower install aot --save
 </section>
 ```
 
-[Demo]: http://redcastor.github.io/rc-dialog/demo/bs/
+[Demo]: http://redcastor.github.io/aot/demo/

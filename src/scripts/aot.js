@@ -83,7 +83,7 @@ HTMLElement.prototype.AOTdestroy = function () {
  * @param visible
  * @returns {NodeList}
  */
-HTMLElement.prototype.AOTrefreshAll = function ( selector, initialize, visible) {
+HTMLElement.prototype.AOTrefreshAll = function ( selector, visible, initialize) {
 
   var aot_all = this.querySelectorAll(selector);
 
@@ -101,19 +101,15 @@ HTMLElement.prototype.AOTrefreshAll = function ( selector, initialize, visible) 
  * @param visible
  * @returns {Array}
  */
-HTMLElement.prototype.AOTrefresh = function (initialize, visible) {
+HTMLElement.prototype.AOTrefresh = function ( visible, initialize ) {
 
-  // Allow refresh only when it was first initialized on startEvent
-  if (initialize) {
-    this.aot.initialized = true;
-  }
-
-  if (this.aot.initialized) {
+  if (!this.aot.hasOwnProperty(initialized) || initialize === true) {
 
     this.aot.elements = this.AOTinit( this.aot.options);
 
-    this.AOTanimate(visible === true || false);
   }
+
+  this.AOTanimate(visible === true || false);
 
   return this.aot.elements;
 };
