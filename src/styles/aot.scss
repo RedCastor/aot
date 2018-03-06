@@ -1,7 +1,12 @@
 //
 // AOT (Animate On Trigger)
 // --------------------------------------------------
-.aot-init {
+aot {
+  display: inherit;
+  position: inherit;
+}
+
+.aot-initialized {
   overflow: hidden;
 }
 
@@ -18,7 +23,7 @@
   visibility: hidden;
 }
 
-// Generate Duration && Delay
+// Generate Duration && Delay Max 7000ms step 100ms
 [data-aot] {
   @for $i from 1 through 70 {
     &[data-aot][data-aot-duration='#{$i * 100}'] {

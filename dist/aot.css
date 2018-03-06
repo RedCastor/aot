@@ -1,4 +1,8 @@
-.aot-init {
+aot {
+  display: inherit;
+  position: inherit; }
+
+.aot-initialized {
   overflow: hidden; }
 
 .aot-animate {

@@ -73,8 +73,8 @@
 
       function onInitialized ( event ) {
 
-        aotElements = event.target.AOTinitAll('.owl-item');
-        owlCtrl.applyAnimation( event.relatedTarget, null, 2000 );
+        aotElements = event.target.AOTinitAll();
+        owlCtrl.applyAnimation( event.relatedTarget );
       }
 
       function onChange (event) {
@@ -93,9 +93,8 @@
 
       $scope.properties = {
         loop: true,
-        autoplay: false,
+        autoplay: true,
         items: 3,
-        rewind: false,
         lazyLoad: true,
         itemElement: 'owl-item',
         animateIn: 'fadeIn',
@@ -133,7 +132,8 @@
           image: 'https://www.youtube.com/watch?v=63OVcmS5x3M',
           big_image: 'dist/images/loco.jpg',
           title: 'Loco',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Proin in nibh eget tortor aliquet fermentum sed in nunc.'
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Proin in nibh eget tortor aliquet fermentum sed in nunc.',
+          animateTimeout: 500
         },
         {
           img: {
@@ -147,7 +147,8 @@
           image: 'dist/images/mining-excavator-768x512.jpg',
           big_image: 'dist/images/mining-excavator.jpg',
           title: 'Mining Excavator',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Proin in nibh eget tortor aliquet fermentum sed in nunc.'
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Proin in nibh eget tortor aliquet fermentum sed in nunc.',
+          animateTimeout: 1000
         },
         {
           img: {
@@ -161,7 +162,8 @@
           image: 'dist/images/buick-768x512.jpg',
           big_image: 'dist/images/buick.jpg',
           title: 'Buick',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Proin in nibh eget tortor aliquet fermentum sed in nunc.'
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Proin in nibh eget tortor aliquet fermentum sed in nunc.',
+          animateTimeout: 1500
         },
         {
           img: {
@@ -175,7 +177,8 @@
           image: 'dist/images/stadium-768x500.jpg',
           big_image: 'dist/images/stadium.jpg',
           title: 'Stadium',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Proin in nibh eget tortor aliquet fermentum sed in nunc.'
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Proin in nibh eget tortor aliquet fermentum sed in nunc.',
+          animateTimeout: 2000
         },
         {
           img: {
@@ -189,7 +192,8 @@
           image: 'dist/images/bmw-768x512.jpg',
           big_image: 'dist/images/bmw.jpg',
           title: 'BMW',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Proin in nibh eget tortor aliquet fermentum sed in nunc.'
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Proin in nibh eget tortor aliquet fermentum sed in nunc.',
+          animateTimeout: 2500
         }
       ];
 
@@ -221,25 +225,77 @@
   <div>
     <br>
     <div class="row">
+      <div id="aot_test" class="small-12 columns">
+        <aot data-aot-delay="1000" data-aot-duration="700">
+          <h2 data-aot="slideInRight" class="text-center">My Title</h2>
+          <div class="row" data-aot="bounceInLeft">
+            <div class="callout float-center" style="width: 50%;">
+              <p class="text-center">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue non ipsum non hendrerit. Proin in nibh eget tortor aliquet fermentum sed in nunc.
+              </p>
+            </div>
+          </div>
+          <div class="row" data-aot="flipInX" data-aot-duration="1500" data-aot-delay="1500" >
+            <button class="button primary float-center" >Read More</button>
+          </div>
+        </aot>
+        <script>
+          //Init default selector ('aot')
+          var aot_test = document.querySelector('#aot_test');
+
+          aot_test.AOTinitAll();
+
+          function doAnimation() {
+            aot_test.AOTanimateAll();
+
+            setTimeout(function() {
+              aot_test.AOTanimateAll(false);
+            }, 4500);
+          }
+          doAnimation();
+
+          //Infinite Animation
+          setInterval(function(){
+            doAnimation();
+          }, 6000);
+        </script>
+      </div>
+    </div>
+    <br>
+    <div class="row">
       <div class="small-12 columns" data-ng-controller="owlCtrl">
 
         <ng-owl-carousel class="owl-theme" owl-items="gallery" owl-properties="properties" >
-          <figure style="height: 400px;" data-ng-repeat="source in gallery" >
-            <img class="owl-lazy fit fit-cover" data-src="{{source.big_image}}" />
-            <section class="owl-slide-content">
-              <section class="entry-content">
-                <h2 class="text-center" data-aot="fadeInRight" data-aot-duration="1000" data-aot-delay="500" >{{source.title}}</h2>
-                <div class="callout align-center" data-aot="fadeInLeft" data-aot-duration="1000" data-aot-delay="1000"><p class="text-center">{{source.description}}</p></div>
-                <div class="" data-aot="slideInUp" data-aot-duration="1500" data-aot-delay="1500"><button class="button primary float-center">Read More</button></div>
+          <aot data-aot-timeout="{{source.animateTimeout}}" data-ng-repeat="source in gallery" >
+            <figure style="height: 400px;">
+              <img class="owl-lazy fit fit-cover" data-src="{{source.big_image}}" />
+              <section class="owl-slide-content">
+                <section class="entry-content">
+                  <h2 class="text-center" data-aot="fadeInRight" data-aot-duration="800" data-aot-delay="500" >{{source.title}}</h2>
+                  <div class="callout" data-aot="bounceInLeft" data-aot-duration="800" data-aot-delay="1000"><p class="text-center">{{source.description}}</p></div>
+                  <div class="" data-aot="flipInX" data-aot-duration="1000" data-aot-delay="1500"><button class="button primary float-center">Read More</button></div>
+                </section>
               </section>
-            </section>
-          </figure>
+            </figure>
+          </aot>
         </ng-owl-carousel>
 
       </div>
     </div>
     <br>
   </div>
+
+  <div class="aot">
+
+  </div>
+  <script>
+    //Init default selector ('aot')
+    var test = document.querySelector('.aot').AOTinitAll();
+    var test2 = document.querySelector('.aot').AOTanimateAll();
+
+    console.log(test);
+    console.log(test2);
+  </script>
 </main>
 </body>
 </html>
