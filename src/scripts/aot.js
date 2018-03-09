@@ -8,7 +8,6 @@
  */
 
 
-
 /**
  * Initialize All by selector
  *
@@ -16,16 +15,23 @@
  * @param options
  * @returns {NodeList}
  */
-HTMLElement.prototype.AOTinitAll = function( selector, options ){
+HTMLElement.prototype.AOTinitAll = function( selector, options, refresh ){
 
   //Set option if selector not set.
-  if (typeof selector === 'object' && options === undefined) {
+  if (typeof selector === 'object') {
     options = selector;
+    refresh = options;
+    selector = undefined;
+  }
+  else if ( typeof selector === 'boolean' ) {
+    refresh = selector;
+    options = undefined;
     selector = undefined;
   }
 
   options = options || {};
   selector = selector || 'aot';
+  refresh = refresh || false;
 
   var aot_all = this.querySelectorAll(selector);
 
@@ -60,7 +66,7 @@ HTMLElement.prototype.AOTinitAll = function( selector, options ){
       }
     }
 
-    elem.AOTinit(options);
+    elem.AOTinit(options, refresh);
   });
 
   return aot_all;
@@ -73,9 +79,24 @@ HTMLElement.prototype.AOTinitAll = function( selector, options ){
  * @param options
  * @returns {{initialized: boolean, options: *, elements: Array}|*}
  */
-HTMLElement.prototype.AOTinit = function( options ){
+HTMLElement.prototype.AOTinit = function( options, refresh ){
 
   var aot_el = this;
+
+  if ( typeof options === 'boolean' ) {
+    refresh = options;
+    options = undefined;
+  }
+
+  if (refresh === true) {
+
+    this.AOTdestroy();
+    this.classList.remove('aot-initialized');
+  }
+
+  if (this.aot && this.aot.initialized === true) {
+    return this.aot;
+  }
 
   /**
    * Private variables
